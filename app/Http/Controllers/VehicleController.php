@@ -6,6 +6,7 @@ use App\Models\Vehicle;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Validator;
 
 class VehicleController extends Controller
 {
@@ -36,7 +37,7 @@ class VehicleController extends Controller
         $validated = $request->validate([
             // 'vnumber'=> 'required|string|max:8|ends_with:0-9|regex:/^[A-Z]/',
 
-            'vnumber' => [
+            'Vehicle_Number' => [
                 'required',
                 'string',
                 'max:7',
@@ -46,23 +47,28 @@ class VehicleController extends Controller
                     }
                 },
             ],
+
+            // 'Vehicle_Number'=> 'required|string',
         
-            'mileage' => 'required|numeric',
+            'Mileage' => 'required|numeric',
 
-            'date' => 'required|date',
+            'Reservation_Date' => 'required|date',
 
-            'time' => 'required|date_format:H:i',
+            'Reservation_Time' => 'required',
 
-            'location' => 'required|in:Ampara,Anuradhapura,Badulla,Batticaloa,Colombo,Galle,Gampaha,Hambantota,Jaffna,Kalutara,Kandy,Kegalle,Kilinochchi,Kurunegala,Mannar,Matale,Matara,Moneragala,Mullaitivu,Nuwara Eliya,Polonnaruwa,Puttalam,Ratnapura,Trincomalee,Vavuniya',
+            'Location' => 'required|in:Ampara,Anuradhapura,Badulla,Batticaloa,Colombo,Galle,Gampaha,Hambantota,Jaffna,Kalutara,Kandy,Kegalle,Kilinochchi,Kurunegala,Mannar,Matale,Matara,Moneragala,Mullaitivu,Nuwara Eliya,Polonnaruwa,Puttalam,Ratnapura,Trincomalee,Vavuniya',
 
-            'message' => 'required|string|max:255',
+            'Message' => 'required|string|max:255',
 
         ]);
 
-
-        $request->user()->vehicles()->create($validated);
         
 
+        $request->user()->vehicles()->create($validated);
+
+        // dd($request->all());
+
+        
         return redirect(route('vehicles.index'));
 
     }

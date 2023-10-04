@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('Vehicle_Number');
             $table->decimal('Mileage',10,2);
             $table->date('Reservation_Date');
-            $table->dateTime('Reservation_Time');
+            $table->time('Reservation_Time');
             $table->string('Location');
             $table->string('Message');
             $table->timestamps();

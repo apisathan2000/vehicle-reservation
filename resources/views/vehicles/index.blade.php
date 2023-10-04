@@ -17,19 +17,26 @@
 
         <form method="POST" action="{{ route('vehicles.store') }}">
             @csrf
-            <label for='vnumber'>{{ __('Vehicle Number') }}</label><br>
-            <input  name ="vnumber" 
+            <label for='number'>{{ __('Vehicle Number') }}</label><br>
+            <input  name ="Vehicle_Number" 
                     type="text" 
                     placeholder="Vehicle Number" 
-                    id='vnumber'
+                    id='number'
+                    value="{{ old('vNumber') }}"
                     class="block w-auto border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                     >
             <br>
+
+            @if($errors->has('vNumber'))
+                <p class="text-red-500">{{ $errors->first('vNumber') }}</p>
+            @endif
+
             <label for='mileage'>{{ __('Current Vehicle Mileage') }}</label><br>
-            <input  name ="mileage" 
+            <input  name ="Mileage" 
                     type="number" 
                     placeholder="Vehicle Mileage" 
                     id='mileage'
+                    value="{{ old('mileage') }}"
                     class="block w-auto border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                     >
 
@@ -37,10 +44,11 @@
 
             <br>
             <label for='date'>{{ __('Preferred Reservation Date') }}</label><br>
-            <input  name ="date" 
+            <input  name ="Reservation_Date" 
                     type="date" 
                     placeholder="Reservation Date" 
                     id='date'
+                    value="{{ old('rDate') }}"
                     class="block w-auto border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                     oninput="checkSelectedDate(this)"
                     min="{{ now()->toDateString() }}"
@@ -62,17 +70,18 @@
 
             <br>
             <label for='time'>{{ __('Preferred Time') }}</label><br>
-            <input  name ="time" 
+            <input  name ="Reservation_Time" 
                     type="time"
                     placeholder="Preferred Time" 
                     id='Time'
+                    value="{{ old('rTime') }}"
                     class="block w-auto border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                     >
 
 
             <br>
             <label for="location">{{ __('Preferred Location') }}</label><br>
-            <select name="location" id="location" class="block w-auto border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
+            <select name="Location" id="location" class="block w-auto border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
                 <option value="Ampara">Ampara</option>
                 <option value="Anuradhapura">Anuradhapura</option>
                 <option value="Badulla">Badulla</option>
@@ -106,7 +115,7 @@
             <br>
             <label for="vmessage"> Message </label>
             <textarea
-                name="message"
+                name="Message"
                 id="vmessage"
                 placeholder="{{ __('What\'s on your mind?') }}"
                 class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"

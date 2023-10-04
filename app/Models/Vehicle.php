@@ -10,11 +10,11 @@ class Vehicle extends Model
     use HasFactory;
 
     protected $fillable = [
-        'vnumber',
-        'mileage',
-        'date',
-        'time',
-        'location',
-        'message',
+        'Vehicle_Number',
+        'Mileage',
+        'Reservation_Date',
+        'Reservation_Time',
+        'Location',
+        'Message',
     ];
 }
