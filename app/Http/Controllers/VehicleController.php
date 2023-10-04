@@ -43,7 +43,8 @@ class VehicleController extends Controller
                 'max:7',
                 function ($attribute, $value, $fail) {
                     if (!preg_match('/^[A-Z]{2}[0-9]{4}$|^[A-Z]{3}[0-9]{4}$/', $value)) {
-                        $fail('The ' . $attribute . ' is invalid.');
+                        // $fail('The ' . $attribute . ' is invalid.');
+                        return redirect(route('vehicles.index'))->with('failure','Check the Vehicle Number');
                     }
                 },
             ],
@@ -69,7 +70,7 @@ class VehicleController extends Controller
         // dd($request->all());
 
         
-        return redirect(route('vehicles.index'));
+        return redirect(route('vehicles.index'))->with('success','Reservation Made Successfully !');
 
     }
 
