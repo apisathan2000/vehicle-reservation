@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VehicleController;
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +19,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::resource('vehicles', VehicleController::class)
+    ->only(['index', 'store'])
+    ->middleware(['auth', 'verified']);
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
