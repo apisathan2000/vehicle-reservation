@@ -51,7 +51,7 @@ class VehicleController extends Controller
                 function ($attribute, $value, $fail) {
                     if (!preg_match('/^[A-Z]{2}[0-9]{4}$|^[A-Z]{3}[0-9]{4}$/', $value)) {
                         // $fail('The ' . $attribute . ' is invalid.');
-                        return redirect(route('vehicles.index'))->with('failure','Check the Vehicle Number');
+                        return redirect(route('dashboard'))->with('failure','Check the Vehicle Number');
                     }
                 },
             ],
@@ -77,7 +77,7 @@ class VehicleController extends Controller
         // dd($request->all());
 
         
-        return redirect(route('vehicles.index'))->with('success','Reservation Made Successfully !');
+        return redirect(route('dashboard'))->with('success','Reservation Made Successfully !');
 
     }
 
@@ -93,17 +93,56 @@ class VehicleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Vehicle $vehicle)
+    public function edit(Vehicle $vehicle):View
     {
         //
+
+        return view('vehicles.edit',compact('vehicle'));
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Vehicle $vehicle)
+    public function update(Request $request, Vehicle $vehicle):RedirectResponse
     {
         //
+        // $this->authorize('update',$vehicle);
+
+
+        $validated = $request->validate([
+            // 'vnumber'=> 'required|string|max:8|ends_with:0-9|regex:/^[A-Z]/',
+
+            'Vehicle_Number' => [
+                'required',
+                'string',
+                'max:7',
+                function ($attribute, $value, $fail) {
+                    if (!preg_match('/^[A-Z]{2}[0-9]{4}$|^[A-Z]{3}[0-9]{4}$/', $value)) {
+                        // $fail('The ' . $attribute . ' is invalid.');
+                        return redirect(route('dashboard'))->with('failure','Check the Vehicle Number');
+                    }
+                },
+            ],
+
+            // 'Vehicle_Number'=> 'required|string',
+        
+            'Mileage' => 'required|numeric',
+
+            'Reservation_Date' => 'required|date',
+
+            'Reservation_Time' => 'required',
+
+            'Location' => 'required|in:Ampara,Anuradhapura,Badulla,Batticaloa,Colombo,Galle,Gampaha,Hambantota,Jaffna,Kalutara,Kandy,Kegalle,Kilinochchi,Kurunegala,Mannar,Matale,Matara,Moneragala,Mullaitivu,Nuwara Eliya,Polonnaruwa,Puttalam,Ratnapura,Trincomalee,Vavuniya',
+
+            'Message' => 'required|string|max:255',
+
+        ]);
+
+        $vehicle->update($validated);
+
+
+        return redirect(route('dashboard'))->with('success','Reservation Updated Successfully !');
     }
 
     /**
@@ -112,5 +151,8 @@ class VehicleController extends Controller
     public function destroy(Vehicle $vehicle)
     {
         //
+        $vehicle->delete();
+
+        return redirect()->route('dashboard')->with('success','Product deleted successfully');
     }
 }

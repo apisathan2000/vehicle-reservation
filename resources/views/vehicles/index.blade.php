@@ -9,19 +9,6 @@
             </h2>
         </x-slot>
 
-
-        @if(session('failure'))
-            <div class="p-4 mb-4 text-sm text-red-700 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-500" role="alert">
-                <span class="font-medium">Invalid Vehicle Number!</span><br>{{ session('failure') }}
-            </div>
-        @endif
-
-        @if (session('success'))
-            <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
-                <span class="font-medium">Success !</span><br>{{ session('success') }}
-            </div>
-        @endif
-
         <div class="relative overflow-x-auto max-w-6xl mx-auto p-4 sm:p-6 lg:p-8 ">
             <table class="w-full text-sm text-left text-gray-800 dark:text-gray-400 my-5">
                 <thead class="text-xs text-gray-100 uppercase bg-gray-500 dark:bg-gray-700 dark:text-gray-400">
@@ -46,14 +33,14 @@
                     <td class="px-6 py-4"> {{ $vehicle->Location }} </td>
                     <td class="px-6 py-4"> {{ $vehicle->Message }} </td>
                     <td class="px-6 py-4"> 
-                        <form action="{{ route('vehicles.destroy',$vehicle->id) }}" method="POST">
+                        <form action="{{ route('vehicles.destroy',$vehicle) }}" method="POST">
                             {{-- <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" href="{{ route('vehicles.show',$vehicle->id) }}">Show</a> --}}
                             {{-- <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                                 <a class="font-medium text-white" href="{{ route('vehicles.show',$vehicle->id) }}">Show</a>
                             </button> --}}
 
                             <button type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
-                                <a class="font-medium text-white" href="{{ route('vehicles.edit',$vehicle->id) }}">Edit</a>
+                                <a class="font-medium text-white" href="{{ route('vehicles.edit',$vehicle) }}">Edit</a>
                             </button>
                             
                             
@@ -62,7 +49,7 @@
                             <button type="submit" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
                                 Delete
                             </button>
-                            {{-- <button type="submit" class="btn btn-danger">Delete</button> --}}
+                            
                         </form>
                     </td>
                 </tr>   

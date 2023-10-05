@@ -22,7 +22,7 @@ Route::get('/', function () {
 
 
 Route::resource('vehicles', VehicleController::class)
-    ->only(['index','store','show','create','destroy', 'edit'])
+    ->only(['index','store','show','create','destroy', 'edit','update'])
     ->middleware(['auth', 'verified']);
 
 
