@@ -16,11 +16,14 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
+                    <x-nav-link :href="route('vehicles.create')" :active="request()->routeIs('vehicles.create')">
+                        {{ __('Vehicle Reservation') }}
+                    </x-nav-link>
+
                     <x-nav-link :href="route('vehicles.index')" :active="request()->routeIs('vehicles.index')">
-                        {{ __('Vehicles') }}
+                        {{ __('View Reservations') }}
                     </x-nav-link>
                 
-
                 </div>
             </div>
 

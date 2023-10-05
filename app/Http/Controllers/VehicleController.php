@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Vehicle;
+use Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -16,16 +17,22 @@ class VehicleController extends Controller
     public function index():View
     {
         //
-        // return response('Hello World !');
-        return view('vehicles.index');
+        $user = Auth::user();
+        $vehicles = $user->vehicles()
+                        ->latest()
+                        ->paginate(5);
+
+        // return view('vehicles.index',compact('vehicles'))->with(request()->input('page'));
+        return view('vehicles.index',compact('vehicles'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create():View
     {
         //
+        return view('vehicles.create');
     }
 
     /**
@@ -77,9 +84,10 @@ class VehicleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Vehicle $vehicle)
+    public function show(Vehicle $vehicle):View
     {
         //
+        return view('vehicles.show');
     }
 
     /**
